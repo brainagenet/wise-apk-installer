@@ -17,21 +17,18 @@ public class ApplicationArrayList
     /**
      * 
      */
-    private static ApplicationArrayList _instance;
+    private static final ApplicationArrayList INSTANCE = new ApplicationArrayList();
 
     /**
      * 
      */
-    private final ArrayList<AppInfo> list = new ArrayList<AppInfo>();
+    private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
 
     /**
      * @return
      */
     public static ApplicationArrayList getInstance() {
-        if ( _instance == null ) {
-            _instance = new ApplicationArrayList();
-        }
-        return _instance;
+        return INSTANCE;
     }
 
     /**
@@ -45,6 +42,21 @@ public class ApplicationArrayList
      */
     public ArrayList<AppInfo> getList() {
         return list;
+    }
+
+    /**
+     * 
+     * @see java.util.ArrayList#clear()
+     */
+    public void clear() {
+        list.clear();
+    }
+
+    /**
+     * @param appInfo
+     */
+    public void add(AppInfo appInfo) {
+        list.add(appInfo);
     }
 
 }

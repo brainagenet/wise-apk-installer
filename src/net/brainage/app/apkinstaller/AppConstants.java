@@ -26,7 +26,7 @@ public final class AppConstants
     /**
      * 
      */
-    public static final String SCAN_ROOT_DIRECTORY = "/mnt/sdcard/apks";
+    public static final String SCAN_ROOT_DIRECTORY = "/mnt/sdcard/apps";
     
     
     /**
