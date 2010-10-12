@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * 
+ * 설치할 APK 파일의 목록을 표시한다.
  * 
  * @author ntmyoungseok.seo@lge.com
  */
