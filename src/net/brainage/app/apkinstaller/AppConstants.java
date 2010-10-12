@@ -19,7 +19,7 @@ public final class AppConstants
     }
 
     /**
-     * 
+     * 디버그 여부 상수
      */
     public static final boolean DEBUG = true;
 
