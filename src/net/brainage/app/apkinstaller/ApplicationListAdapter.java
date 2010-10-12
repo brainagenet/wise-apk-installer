@@ -39,7 +39,8 @@ public class ApplicationListAdapter extends ArrayAdapter<AppInfo>
      * @param itemLayoutResourceId
      * @param objects
      */
-    public ApplicationListAdapter(Context context, int itemLayoutResourceId, List<AppInfo> objects) {
+    public ApplicationListAdapter(Context context, int itemLayoutResourceId,
+                                  List<AppInfo> objects) {
         super(context, itemLayoutResourceId, objects);
 
         this.context = context;
@@ -77,23 +78,33 @@ public class ApplicationListAdapter extends ArrayAdapter<AppInfo>
         holder.getName().setText(info.getName());
         holder.getVersion().setText(info.getVersionName());
 
-        holder.getActionButton().setClickable(true);
-        if ( info.isUpdatable() ) {
-            holder.getActionButton().setText("Update");
-        } else {
-            if ( info.wasInstalled() ) {
-                holder.getActionButton().setText("Installed");
-                holder.getActionButton().setClickable(false);
-            } else {
+        holder.getActionButton().setEnabled(true);
+        switch ( info.getStatus() ) {
+            case 0:
+                // installable
                 holder.getActionButton().setText("Install");
-            }
+            break;
+
+            case 1:
+                // installed
+                holder.getActionButton().setEnabled(false);
+                holder.getActionButton().setText("Installed");
+            break;
+
+            case 2:
+                // updatable
+                holder.getActionButton().setText("Update");
+            break;
         }
+        
         holder.getActionButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setDataAndType(info.getFileUri(), "application/vnd.android.package-archive");
-                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setDataAndType(info.getFileUri(),
+                        "application/vnd.android.package-archive");
+                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.setClassName("com.android.packageinstaller",
                         "com.android.packageinstaller.PackageInstallerActivity");
                 context.startActivity(i);

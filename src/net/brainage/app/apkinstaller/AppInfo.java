@@ -51,6 +51,11 @@ public class AppInfo
     private boolean updatable = false;
 
     /**
+     * package status : 0 - installable, 1 - installed, 2 - updatable
+     */
+    private int status;
+
+    /**
      * 
      */
     private Uri fileUri;
@@ -171,6 +176,20 @@ public class AppInfo
      */
     public void setFileUri(Uri fileUri) {
         this.fileUri = fileUri;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
     }
 
 }

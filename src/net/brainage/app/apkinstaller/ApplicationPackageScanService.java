@@ -17,11 +17,10 @@ package net.brainage.app.apkinstaller;
 
 import java.io.File;
 
+import net.brainage.app.apkinstaller.util.PackageUtil;
 import android.app.Service;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
@@ -144,17 +143,35 @@ public class ApplicationPackageScanService extends Service
             if ( AppConstants.DEBUG ) {
                 Log.d(TAG, "start doInBackground() ...");
             }
-            File[] fileList = rootDirectory.listFiles();
+
+            scan(rootDirectory);
+
+            return null;
+        }
+
+        /**
+         * @param dir
+         */
+        private void scan(File dir) {
+            if ( !dir.exists() || !dir.isDirectory() ) {
+                throw new RuntimeException();
+            }
+
+            File[] fileList = dir.listFiles();
             for ( int i = 0, l = fileList.length ; i < l ; i++ ) {
                 File f = fileList[i];
-                if ( f.getName().toLowerCase().endsWith(".apk") ) {
-                    if ( AppConstants.DEBUG ) {
-                        Log.d(TAG, "    - " + f.getName());
+                if ( f.isDirectory() ) {
+                    scan(f);
+                } else {
+                    if ( f.getName().toLowerCase().endsWith(
+                            AppConstants.ANDROID_PACKAGE_FILE_EXT) ) {
+                        if ( AppConstants.DEBUG ) {
+                            Log.d(TAG, "    - " + f.getName());
+                        }
+                        publishProgress(f);
                     }
-                    publishProgress(f);
                 }
             }
-            return null;
         }
 
         /**
@@ -167,13 +184,26 @@ public class ApplicationPackageScanService extends Service
                 Log.d(TAG, "start onProgressUpdate() ...");
             }
             File apkFile = values[0];
-            
 
-            PackageManager pm = getPackageManager();
-            PackageInfo packageInfo = pm.getPackageArchiveInfo(apkFile.getAbsolutePath(),
-                    0);
+            // PackageManager pm = getPackageManager();
+            // PackageInfo packageInfo = pm.getPackageArchiveInfo(apkFile.getAbsolutePath(), 0);
 
-            AppInfo appInfo = new AppInfo();
+            Uri packageUri = Uri.fromFile(apkFile);
+            AppInfo appInfo = PackageUtil.parse(ApplicationPackageScanService.this,
+                    packageUri.getPath(), PackageManager.GET_UNINSTALLED_PACKAGES);
+            appInfo.setFileUri(packageUri);
+
+            if ( AppConstants.DEBUG ) {
+                Log.d(TAG, "    - package uri   : " + appInfo.getFileUri().getPath());
+                Log.d(TAG, "    - package name  : " + appInfo.getPackageName());
+                Log.d(TAG, "    - name          : " + appInfo.getName());
+                Log.d(TAG, "    - version code  : " + appInfo.getVersionCode());
+                Log.d(TAG, "    - version name  : " + appInfo.getVersionName());
+                Log.d(TAG, "    - was installed : " + appInfo.wasInstalled());
+                Log.d(TAG, "    - updatable     : " + appInfo.isUpdatable());
+            }
+
+            /*
             appInfo.setFileUri(Uri.fromFile(apkFile));
             appInfo.setPackageName(packageInfo.packageName);
             appInfo.setName("");
@@ -208,6 +238,7 @@ public class ApplicationPackageScanService extends Service
                 Log.d(TAG, "    - was installed : " + appInfo.wasInstalled());
                 Log.d(TAG, "    - updatable     : " + appInfo.isUpdatable());
             }
+            */
 
             appList.add(appInfo);
         }
