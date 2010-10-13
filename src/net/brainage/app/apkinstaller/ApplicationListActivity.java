@@ -60,6 +60,19 @@ public class ApplicationListActivity extends ListActivity
 
         refreshAppList();
     }
+    
+    /**
+     * 
+     * @see android.app.Activity#onRestart()
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        
+        refreshAppList();
+    }
+
+
 
     /**
      * 
