@@ -23,6 +23,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 
 /**
  * 
@@ -75,8 +77,43 @@ public class PackageUtil
             }
         }
 
-        // AssetManager assetManager = new AssetManager();
-        // package installer 참조
+        Resources ctxRes = context.getResources();
+
+        AssetManager assetManager = new AssetManager();
+        assetManager.addAssetPath(archiveFilePath);
+
+        Resources pkgRes = new Resources(assetManager, ctxRes.getDisplayMetrics(), ctxRes
+                .getConfiguration());
+
+        // get Package label
+        CharSequence label = null;
+        if ( pi.applicationInfo.labelRes != 0 ) {
+            try {
+                label = pkgRes.getText(pi.applicationInfo.labelRes);
+            } catch ( Resources.NotFoundException e ) {
+            }
+        }
+
+        if ( label == null ) {
+            label = (pi.applicationInfo.nonLocalizedLabel != null) ? pi.applicationInfo.nonLocalizedLabel
+                    : pi.applicationInfo.packageName;
+        }
+        appInfo.setName(label.toString());
+        
+        // get package icon drawable
+        Drawable icon = null;
+        if (pi.applicationInfo.icon != 0) {
+            try {
+                icon = pkgRes.getDrawable(pi.applicationInfo.icon);
+            } catch (Resources.NotFoundException e) {
+            }
+        }
+        
+        if (icon == null) {
+            icon = context.getPackageManager().getDefaultActivityIcon();
+        }
+        appInfo.setIcon(icon);
+        
 
         return appInfo;
     }
