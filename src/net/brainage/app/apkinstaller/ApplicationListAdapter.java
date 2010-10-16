@@ -61,9 +61,9 @@ public class ApplicationListAdapter extends ArrayAdapter<AppInfo>
         if ( row == null ) {
             row = LayoutInflater.from(context).inflate(itemLayoutResourceId, null);
 
-            ImageView icon = (ImageView) row.findViewById(R.id.appIcon);
-            TextView name = (TextView) row.findViewById(R.id.appName);
-            TextView version = (TextView) row.findViewById(R.id.appVersion);
+            ImageView icon = (ImageView) row.findViewById(R.id.app_icon);
+            TextView name = (TextView) row.findViewById(R.id.app_label);
+            TextView version = (TextView) row.findViewById(R.id.app_version);
             Button action = (Button) row.findViewById(R.id.actionButton);
 
             ViewHolder holder = new ViewHolder(icon, name, version, action);

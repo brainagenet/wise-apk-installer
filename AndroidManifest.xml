@@ -11,6 +11,7 @@
         android:label="@string/app_name">
         <activity
             android:name=".ApplicationListActivity"
+            android:theme="@style/Theme.BarinAgeNet"
             android:label="@string/app_name">
             <intent-filter>
                 <action

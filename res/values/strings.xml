@@ -9,4 +9,8 @@
     <string name="apk_stauts_install">Install</string>
     <string name="apk_stauts_installed">Installed</string>
     <string name="apk_stauts_update">Update</string>
+    
+    <string name="description_refresh">Refresh</string>
+    <string name="empty_apps">No application packages found</string>
+    
 </resources>

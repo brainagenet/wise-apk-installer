@@ -2,21 +2,33 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_root"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <ListView
-        android:id="@id/android:list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:drawSelectorOnTop="false" />
+    <LinearLayout
+        style="@style/TitleBar">
 
-    <TextView
-        android:id="@id/android:empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No data" />
+        <TextView
+            style="@style/TitleBarText" />
+
+        <ImageView
+            style="@style/TitleBarSeparator" />
+        <ImageButton
+            style="@style/TitleBarAction"
+            android:id="@+id/btn_title_refresh"
+            android:contentDescription="@string/description_refresh"
+            android:src="@drawable/ic_title_refresh"
+            android:onClick="onRefreshClick" />
+        <ProgressBar
+            style="@style/TitleBarProgressIndicator"
+            android:id="@+id/title_refresh_progress"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/app_list_content" />
 
 </LinearLayout>
