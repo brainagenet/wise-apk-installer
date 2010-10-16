@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -50,6 +51,12 @@ public class ApplicationListActivity extends ListActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initActivity();
+        // refreshAppList();
+    }
+
+    private void initActivity() {
         setContentView(R.layout.application_list);
 
         appList = ApplicationArrayList.getInstance();
@@ -57,10 +64,8 @@ public class ApplicationListActivity extends ListActivity
         adapter = new ApplicationListAdapter(this, R.layout.application_list_item,
                 appList.getList());
         setListAdapter(adapter);
-
-        refreshAppList();
     }
-    
+
     /**
      * 
      * @see android.app.Activity#onRestart()
@@ -68,11 +73,9 @@ public class ApplicationListActivity extends ListActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-        
-        refreshAppList();
+
+        // refreshAppList();
     }
-
-
 
     /**
      * 
@@ -84,6 +87,8 @@ public class ApplicationListActivity extends ListActivity
 
         IntentFilter filter = new IntentFilter(AppConstants.ACTION_REFRESHED_APPLIST);
         registerReceiver(applicationRefreshReceiver, filter);
+
+        refreshAppList();
     }
 
     /**
@@ -104,6 +109,23 @@ public class ApplicationListActivity extends ListActivity
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    /**
+     * @param newConfig
+     * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ) {
+            if ( AppConstants.DEBUG ) {
+                Log.d(TAG, "onConfigurationChanged() --------------");
+                Log.d(TAG, "    Configuration.ORIENTATION_LANDSCAPE");
+            }
+            initActivity();
+        }
     }
 
     /**
@@ -152,7 +174,6 @@ public class ApplicationListActivity extends ListActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             adapter.notifyDataSetChanged();
-
             dismissDialog(DIALOG_LOADING);
         }
     };

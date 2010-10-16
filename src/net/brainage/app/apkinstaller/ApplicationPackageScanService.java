@@ -67,7 +67,7 @@ public class ApplicationPackageScanService extends Service
 
         appList = ApplicationArrayList.getInstance();
 
-        rootDirectory = new File(AppConstants.SCAN_ROOT_DIRECTORY);
+        rootDirectory = new File(getResources().getString(R.string.base_app_directory));
         if ( !rootDirectory.exists() ) {
             if ( AppConstants.DEBUG ) {
                 Log.d(TAG, "    - " + rootDirectory.getAbsolutePath()
