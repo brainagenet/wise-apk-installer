@@ -4,9 +4,7 @@
  */
 package net.brainage.app.apkinstaller;
 
-import android.app.Dialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -31,11 +29,6 @@ public class ApplicationListActivity extends ListActivity
      * 
      */
     private static final String TAG = "ApplicationListActivity";
-
-    /**
-     * 
-     */
-    private static final int DIALOG_LOADING = 10100;
 
     /**
      * 
@@ -106,23 +99,6 @@ public class ApplicationListActivity extends ListActivity
         unregisterReceiver(applicationRefreshReceiver);
 
         super.onPause();
-    }
-
-    /**
-     * @param id
-     * @return
-     * @see android.app.Activity#onCreateDialog(int)
-     */
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch ( id ) {
-            case DIALOG_LOADING:
-                ProgressDialog dialog = new ProgressDialog(this);
-                dialog.setMessage("Loading...");
-                return dialog;
-        }
-
-        return null;
     }
 
     /**
