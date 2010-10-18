@@ -16,4 +16,6 @@
 -->
 <resources>
     <integer name="fling_animation_duration">350</integer>
+    
+    <string name="default_base_directory">/mnt/sdcard/apps</string>
 </resources>
