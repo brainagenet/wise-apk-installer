@@ -33,6 +33,9 @@ public final class AppConstants
      */
     public static final String ACTION_NEW_APPLICATION_FOUND = "net.brainage.apkinstaller.action.NEW_APPLICATION_FOUND";
 
+    /**
+     * 
+     */
     public static final String ACTION_REFRESHED_APPLIST = "net.brainage.apkinstaller.action.REFRESHED_APPLIST";
 
 }
