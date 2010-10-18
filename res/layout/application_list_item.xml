@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@+id/actionButton"
         android:layout_toRightOf="@+id/app_icon"
+        android:paddingLeft="5dip"
         style="@style/SessionTitle" />
 
     <TextView
@@ -25,7 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/app_icon"
-        style="@style/SessionSubtitle" android:layout_below="@+id/app_label"/>
+        android:layout_below="@+id/app_label"
+        android:paddingLeft="5dip"
+        style="@style/SessionSubtitle" />
 
     <Button
         android:layout_width="wrap_content"
