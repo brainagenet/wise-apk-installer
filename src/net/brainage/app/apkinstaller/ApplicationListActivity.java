@@ -22,8 +22,7 @@ import android.widget.TextView;
  * 
  * @author ntmyoungseok.seo@lge.com
  */
-public class ApplicationListActivity extends ListActivity
-{
+public class ApplicationListActivity extends ListActivity {
 
     /**
      * 
@@ -61,6 +60,9 @@ public class ApplicationListActivity extends ListActivity
         initActivity();
     }
 
+    /**
+     * 
+     */
     private void initActivity() {
         setContentView(R.layout.application_list);
 
@@ -99,6 +101,18 @@ public class ApplicationListActivity extends ListActivity
         unregisterReceiver(applicationRefreshReceiver);
 
         super.onPause();
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onStop()
+     */
+    @Override
+    protected void onStop() {
+        if ( AppConstants.DEBUG ) {
+            Log.d(TAG, "onStop() ---------------------------");
+        }
+        stopService(new Intent(this, ApplicationPackageScanService.class));
+        super.onStop();
     }
 
     /**

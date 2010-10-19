@@ -67,7 +67,12 @@ public class ApplicationPackageScanService extends Service
 
         appList = ApplicationArrayList.getInstance();
 
-        rootDirectory = new File(AppConstants.SCAN_ROOT_DIRECTORY);
+        String baseDirectory = getBaseDirectory();
+        if ( AppConstants.DEBUG ) {
+            Log.d(TAG, "    base directory = " + baseDirectory);
+        } 
+        
+        rootDirectory = new File(baseDirectory);
         if ( !rootDirectory.exists() ) {
             if ( AppConstants.DEBUG ) {
                 Log.d(TAG, "    - " + rootDirectory.getAbsolutePath()
@@ -75,6 +80,12 @@ public class ApplicationPackageScanService extends Service
             }
             rootDirectory.mkdirs();
         }
+    }
+    
+    private String getBaseDirectory() {
+        // TODO Setting에 지정된 설정 값을 읽어오고 만약 해당 값이 없을 경우, config.xml에 지정된 기본값을 Loading한다.
+        String baseDirectory = getResources().getString(R.string.default_base_directory);
+        return baseDirectory;
     }
 
     /**
