@@ -32,8 +32,12 @@ import android.util.Log;
  * @author ms29.seo@gmail.com
  * @version 1.0
  */
+<<<<<<< HEAD:src/net/brainage/app/apkinstaller/AppScanService.java
 public class AppScanService extends Service
 {
+=======
+public class ApplicationPackageScanService extends Service {
+>>>>>>> 6a5da68fdd837591b25238e93b080c15a8e634fc:src/net/brainage/app/apkinstaller/ApplicationPackageScanService.java
 
     /**
      * LOGCAT TAG
@@ -70,8 +74,8 @@ public class AppScanService extends Service
         String baseDirectory = getBaseDirectory();
         if ( AppConstants.DEBUG ) {
             Log.d(TAG, "    base directory = " + baseDirectory);
-        } 
-        
+        }
+
         rootDirectory = new File(baseDirectory);
         if ( !rootDirectory.exists() ) {
             if ( AppConstants.DEBUG ) {
@@ -81,7 +85,7 @@ public class AppScanService extends Service
             rootDirectory.mkdirs();
         }
     }
-    
+
     private String getBaseDirectory() {
         // TODO Setting에 지정된 설정 값을 읽어오고 만약 해당 값이 없을 경우, config.xml에 지정된 기본값을 Loading한다.
         String baseDirectory = getResources().getString(R.string.default_base_directory);
@@ -136,8 +140,7 @@ public class AppScanService extends Service
      * @author ms29.seo@gmail.com
      * @version 1.0
      */
-    private class ApplicationPackageScanTask extends AsyncTask<Void, File, Void>
-    {
+    private class ApplicationPackageScanTask extends AsyncTask<Void, File, Void> {
 
         /**
          * 
@@ -174,8 +177,8 @@ public class AppScanService extends Service
                 if ( f.isDirectory() ) {
                     scan(f);
                 } else {
-                    if ( f.getName().toLowerCase().endsWith(
-                            AppConstants.ANDROID_PACKAGE_FILE_EXT) ) {
+                    if ( f.getName().toLowerCase()
+                            .endsWith(AppConstants.ANDROID_PACKAGE_FILE_EXT) ) {
                         if ( AppConstants.DEBUG ) {
                             Log.d(TAG, "    - " + f.getName());
                         }
@@ -194,6 +197,7 @@ public class AppScanService extends Service
             if ( AppConstants.DEBUG ) {
                 Log.d(TAG, "start onProgressUpdate() ...");
             }
+<<<<<<< HEAD:src/net/brainage/app/apkinstaller/AppScanService.java
             File apkFile = values[0];
 
             // PackageManager pm = getPackageManager();
@@ -231,27 +235,29 @@ public class AppScanService extends Service
             // 이미 설치되어 있는지 확인
             // Install 여부 확인
             PackageInfo installedPackageInfo;
+=======
+>>>>>>> 6a5da68fdd837591b25238e93b080c15a8e634fc:src/net/brainage/app/apkinstaller/ApplicationPackageScanService.java
             try {
-                installedPackageInfo = pm.getPackageInfo(appInfo.getPackageName(), 0);
-                if ( installedPackageInfo != null ) {
-                    appInfo.setWasInstalled(true);
+                File apkFile = values[0];
+
+                Uri packageUri = Uri.fromFile(apkFile);
+                AppInfo appInfo = PackageUtil.parse(ApplicationPackageScanService.this,
+                        packageUri.getPath(), PackageManager.GET_UNINSTALLED_PACKAGES);
+                appInfo.setFileUri(packageUri);
+
+                if ( AppConstants.DEBUG ) {
+                    Log.d(TAG, "    - package uri   : " + appInfo.getFileUri().getPath());
+                    Log.d(TAG, "    - package name  : " + appInfo.getPackageName());
+                    Log.d(TAG, "    - name          : " + appInfo.getName());
+                    Log.d(TAG, "    - version code  : " + appInfo.getVersionCode());
+                    Log.d(TAG, "    - version name  : " + appInfo.getVersionName());
+                    Log.d(TAG, "    - was installed : " + appInfo.wasInstalled());
+                    Log.d(TAG, "    - updatable     : " + appInfo.isUpdatable());
                 }
 
-                // 이미 설치되어 있는 경우 버전 코드 확인
-                // update 여부 확인
-                if ( appInfo.getVersionCode() < installedPackageInfo.versionCode ) {
-                    appInfo.setUpdatable(true);
-                }
-            } catch ( NameNotFoundException e ) {
+                appList.add(appInfo);
+            } catch ( Exception e ) {
             }
-
-            if ( AppConstants.DEBUG ) {
-                Log.d(TAG, "    - was installed : " + appInfo.wasInstalled());
-                Log.d(TAG, "    - updatable     : " + appInfo.isUpdatable());
-            }
-            */
-
-            appList.add(appInfo);
         }
 
         /**

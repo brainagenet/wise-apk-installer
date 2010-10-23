@@ -21,7 +21,7 @@ public final class AppConstants
     /**
      * 디버그 여부 상수
      */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     /**
      * APK File 확장자
