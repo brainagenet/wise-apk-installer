@@ -32,12 +32,12 @@ public class ApplicationListActivity extends ListActivity {
     /**
      * 
      */
-    private ApplicationArrayList appList;
+    private AppArrayList appList;
 
     /**
      * 
      */
-    private ApplicationListAdapter adapter;
+    private AppArrayAdapter adapter;
 
     /**
      * 
@@ -71,9 +71,9 @@ public class ApplicationListActivity extends ListActivity {
         refreshProgress = (ProgressBar) findViewById(R.id.title_refresh_progress);
         refreshButton = (ImageButton) findViewById(R.id.btn_title_refresh);
 
-        appList = ApplicationArrayList.getInstance();
+        appList = AppArrayList.getInstance();
 
-        adapter = new ApplicationListAdapter(this, R.layout.application_list_item,
+        adapter = new AppArrayAdapter(this, R.layout.application_list_item,
                 appList.getList());
         setListAdapter(adapter);
     }
@@ -111,7 +111,7 @@ public class ApplicationListActivity extends ListActivity {
         if ( AppConstants.DEBUG ) {
             Log.d(TAG, "onStop() ---------------------------");
         }
-        stopService(new Intent(this, ApplicationPackageScanService.class));
+        stopService(new Intent(this, AppScanService.class));
         super.onStop();
     }
 
@@ -151,7 +151,7 @@ public class ApplicationListActivity extends ListActivity {
 
         appList.clear();
 
-        Intent serviceIntent = new Intent(this, ApplicationPackageScanService.class);
+        Intent serviceIntent = new Intent(this, AppScanService.class);
         startService(serviceIntent);
     }
 

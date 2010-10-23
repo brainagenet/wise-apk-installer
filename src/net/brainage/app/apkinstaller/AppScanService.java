@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.ApplicationPackageScanService
+ * (#) net.brainage.app.apkinstaller.AppScanService
  * Created on 2010. 10. 11.
  *
  * 상기 프로그램에 대한 저작권을 포함한 지적재산권은 "와이즈스톤닷넷"에 있으며,
@@ -32,13 +32,13 @@ import android.util.Log;
  * @author ms29.seo@gmail.com
  * @version 1.0
  */
-public class ApplicationPackageScanService extends Service
+public class AppScanService extends Service
 {
 
     /**
      * LOGCAT TAG
      */
-    private static final String TAG = "ApplicationPackageScanService";
+    private static final String TAG = "AppScanService";
 
     /**
      * 
@@ -53,7 +53,7 @@ public class ApplicationPackageScanService extends Service
     /**
      * 
      */
-    private ApplicationArrayList appList;
+    private AppArrayList appList;
 
     /**
      * 
@@ -65,7 +65,7 @@ public class ApplicationPackageScanService extends Service
             Log.d(TAG, "start onCreate() ...");
         }
 
-        appList = ApplicationArrayList.getInstance();
+        appList = AppArrayList.getInstance();
 
         String baseDirectory = getBaseDirectory();
         if ( AppConstants.DEBUG ) {
@@ -200,7 +200,7 @@ public class ApplicationPackageScanService extends Service
             // PackageInfo packageInfo = pm.getPackageArchiveInfo(apkFile.getAbsolutePath(), 0);
 
             Uri packageUri = Uri.fromFile(apkFile);
-            AppInfo appInfo = PackageUtil.parse(ApplicationPackageScanService.this,
+            AppInfo appInfo = PackageUtil.parse(AppScanService.this,
                     packageUri.getPath(), PackageManager.GET_UNINSTALLED_PACKAGES);
             appInfo.setFileUri(packageUri);
 

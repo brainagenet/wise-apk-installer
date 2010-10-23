@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-    <service android:name="ApplicationPackageScanService"></service>
+    <service android:name="AppScanService"></service>
 </application>
 
 

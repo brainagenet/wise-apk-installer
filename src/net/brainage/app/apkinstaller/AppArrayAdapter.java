@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.ApplicationListAdapter
+ * (#) net.brainage.app.apkinstaller.AppArrayAdapter
  * Created on 2010. 10. 11.
  */
 package net.brainage.app.apkinstaller;
@@ -21,7 +21,7 @@ import android.widget.TextView;
  * 
  * @author ntmyoungseok.seo@lge.com
  */
-public class ApplicationListAdapter extends ArrayAdapter<AppInfo>
+public class AppArrayAdapter extends ArrayAdapter<AppInfo>
 {
 
     /**
@@ -39,7 +39,7 @@ public class ApplicationListAdapter extends ArrayAdapter<AppInfo>
      * @param itemLayoutResourceId
      * @param objects
      */
-    public ApplicationListAdapter(Context context, int itemLayoutResourceId,
+    public AppArrayAdapter(Context context, int itemLayoutResourceId,
                                   List<AppInfo> objects) {
         super(context, itemLayoutResourceId, objects);
 

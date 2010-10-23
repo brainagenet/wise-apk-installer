@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.ApplicationArrayList
+ * (#) net.brainage.app.apkinstaller.AppArrayList
  * Created on 2010. 10. 11.
  */
 package net.brainage.app.apkinstaller;
@@ -11,13 +11,13 @@ import java.util.ArrayList;
  * 
  * @author ntmyoungseok.seo@lge.com
  */
-public class ApplicationArrayList
+public class AppArrayList
 {
 
     /**
      * 
      */
-    private static final ApplicationArrayList INSTANCE = new ApplicationArrayList();
+    private static final AppArrayList INSTANCE = new AppArrayList();
 
     /**
      * 
@@ -27,14 +27,14 @@ public class ApplicationArrayList
     /**
      * @return
      */
-    public static ApplicationArrayList getInstance() {
+    public static AppArrayList getInstance() {
         return INSTANCE;
     }
 
     /**
      * 
      */
-    private ApplicationArrayList() {
+    private AppArrayList() {
     }
 
     /**
