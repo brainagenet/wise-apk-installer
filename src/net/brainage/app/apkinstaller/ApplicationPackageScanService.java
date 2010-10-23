@@ -101,7 +101,7 @@ public class ApplicationPackageScanService extends Service
             Log.d(TAG, "start onStartCommand() ...");
         }
         refreshApplications();
-        return Service.START_NOT_STICKY;
+        return Service.START_STICKY;
     }
 
     /**
