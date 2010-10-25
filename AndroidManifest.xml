@@ -4,12 +4,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.brainage.app.apkinstaller"
     android:versionCode="1"
-    android:versionName="1.0" android:installLocation="preferExternal">
+    android:versionName="1.0"
+    android:installLocation="preferExternal">
 
     <application
-        android:label="@string/app_name" android:icon="@drawable/ic_launcher_preloaded_apps">
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher_preloaded_apps">
         <activity
-            android:name=".ApplicationListActivity"
+            android:name=".AppListActivity"
             android:theme="@style/Theme.BarinAgeNet"
             android:label="@string/app_name">
             <intent-filter>
@@ -20,8 +22,11 @@
             </intent-filter>
         </activity>
 
-    <service android:name="AppScanService"></service>
-</application>
+        <service
+            android:name="AppScanService">
+        </service>
+
+    </application>
 
 
 </manifest> 

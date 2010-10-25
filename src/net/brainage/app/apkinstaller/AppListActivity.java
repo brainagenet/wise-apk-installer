@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.ApplicationListActivity
+ * (#) net.brainage.app.apkinstaller.AppListActivity
  * Created on 2010. 10. 11.
  */
 package net.brainage.app.apkinstaller;
@@ -22,12 +22,12 @@ import android.widget.TextView;
  * 
  * @author ntmyoungseok.seo@lge.com
  */
-public class ApplicationListActivity extends ListActivity {
+public class AppListActivity extends ListActivity {
 
     /**
      * 
      */
-    private static final String TAG = "ApplicationListActivity";
+    private static final String TAG = "AppListActivity";
 
     /**
      * 
