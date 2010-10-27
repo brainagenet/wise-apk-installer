@@ -19,6 +19,7 @@ import java.io.File;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -27,6 +28,7 @@ import android.util.Log;
 
 import net.brainage.apkinstaller.AppConstants;
 import net.brainage.apkinstaller.R;
+import net.brainage.apkinstaller.ui.SettingsActivity;
 import net.brainage.apkinstaller.ui.adapter.AppInfo;
 import net.brainage.apkinstaller.util.AppArrayList;
 import net.brainage.apkinstaller.util.PackageUtil;
@@ -86,10 +88,14 @@ public class AppScanService extends Service
         }
     }
 
+    /**
+     * @return
+     */
     private String getBaseDirectory() {
-        // TODO Setting에 지정된 설정 값을 읽어오고 만약 해당 값이 없을 경우, 
-        // config.xml에 지정된 기본값을 Loading한다.
-        String baseDirectory = getResources().getString(R.string.default_base_directory);
+        SharedPreferences pref = getSharedPreferences(SettingsActivity.SETTINGS_NAME, 0);
+        String defaultBaseDirectory = getResources().getString(R.string.default_base_directory);
+        String baseDirectory = pref.getString(getResources().getText(R.string.base_directory_key)
+                .toString(), defaultBaseDirectory);
         return baseDirectory;
     }
 
