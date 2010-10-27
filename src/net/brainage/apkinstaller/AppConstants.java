@@ -1,8 +1,8 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppConstants
+ * (#) net.brainage.apkinstaller.AppConstants
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller;
 
 /**
  * 

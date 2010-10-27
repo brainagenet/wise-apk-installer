@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="@string/base_directory_key"
+        android:summary="@string/settings_base_directory_summary"
+        android:title="@string/settings_base_directory" android:dialogMessage="@string/dialog_msg_base_directory" android:dialogTitle="@string/dialog_title_base_directory" android:dialogIcon="@drawable/ic_title_home">
+        </EditTextPreference>
+        
+</PreferenceScreen>

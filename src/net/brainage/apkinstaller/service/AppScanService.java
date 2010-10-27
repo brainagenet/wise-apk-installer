@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppScanService
+ * (#) net.brainage.apkinstaller.AppScanService
  * Created on 2010. 10. 11.
  *
  * 상기 프로그램에 대한 저작권을 포함한 지적재산권은 "와이즈스톤닷넷"에 있으며,
@@ -13,11 +13,10 @@
  * 
  * (Copyright ⓒ 1997-2010 wisestone.net. All Rights Reserved| Confidential)
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.service;
 
 import java.io.File;
 
-import net.brainage.app.apkinstaller.util.PackageUtil;
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,6 +24,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
+
+import net.brainage.apkinstaller.AppConstants;
+import net.brainage.apkinstaller.R;
+import net.brainage.apkinstaller.ui.adapter.AppInfo;
+import net.brainage.apkinstaller.util.AppArrayList;
+import net.brainage.apkinstaller.util.PackageUtil;
 
 /**
  * 

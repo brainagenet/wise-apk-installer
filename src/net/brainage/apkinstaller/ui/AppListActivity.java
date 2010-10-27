@@ -1,8 +1,8 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppListActivity
+ * (#) net.brainage.apkinstaller.AppListActivity
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.ui;
 
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
@@ -12,17 +12,27 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import net.brainage.apkinstaller.AppConstants;
+import net.brainage.apkinstaller.R;
+import net.brainage.apkinstaller.service.AppScanService;
+import net.brainage.apkinstaller.ui.adapter.AppArrayAdapter;
+import net.brainage.apkinstaller.util.AppArrayList;
+import net.brainage.apkinstaller.util.UiUtil;
 
 /**
  * 설치할 APK 파일의 목록을 표시한다.
  * 
  * @author ntmyoungseok.seo@lge.com
  */
-public class AppListActivity extends ListActivity {
+public class AppListActivity extends ListActivity
+{
 
     /**
      * 
@@ -66,15 +76,14 @@ public class AppListActivity extends ListActivity {
     private void initActivity() {
         setContentView(R.layout.application_list);
 
-        ( (TextView) findViewById(R.id.title_text) ).setText(getTitle());
+        ((TextView) findViewById(R.id.title_text)).setText(getTitle());
 
         refreshProgress = (ProgressBar) findViewById(R.id.title_refresh_progress);
         refreshButton = (ImageButton) findViewById(R.id.btn_title_refresh);
 
         appList = AppArrayList.getInstance();
 
-        adapter = new AppArrayAdapter(this, R.layout.application_list_item,
-                appList.getList());
+        adapter = new AppArrayAdapter(this, R.layout.application_list_item, appList.getList());
         setListAdapter(adapter);
     }
 
@@ -103,7 +112,9 @@ public class AppListActivity extends ListActivity {
         super.onPause();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see android.app.Activity#onStop()
      */
     @Override
@@ -130,6 +141,35 @@ public class AppListActivity extends ListActivity {
             }
             initActivity();
         }
+    }
+
+    /**
+     * 
+     * @param menu
+     * @return
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.app_list_menus, menu);
+        return true;
+    }
+
+    /**
+     * 
+     * @param item
+     * @return
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch ( item.getItemId() ) {
+            case R.id.menu_settings:
+                UiUtil.goSettings(this);
+                return true;
+        }
+        return false;
     }
 
     /**

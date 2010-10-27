@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
     <string name="hello">Hello World, ApplicationListActivity!</string>
     <string name="app_name">Wise Apk Installer</string>
     <string name="msg_install">Install</string>
@@ -13,4 +14,11 @@
     <string name="description_refresh">Refresh</string>
     <string name="empty_apps">No application packages found</string>
     
+    <string name="menu_settings">Settings</string>
+    
+    <string name="settings_base_directory">Base Directory</string>
+    <string name="settings_base_directory_summary">Input/Edit application package base directory.</string>
+    
+    <string name="dialog_title_base_directory">Input base directory</string>
+    <string name="dialog_msg_base_directory"> directory is under &quot;/mnt/sdcard&quot;.</string>
 </resources>

@@ -1,5 +1,5 @@
 /*
- * (#) net.brainage.app.apkinstaller.util.PackageUtil
+ * (#) net.brainage.apkinstaller.util.PackageUtil
  * Created on 2010. 10. 12.
  *
  * 상기 프로그램에 대한 저작권을 포함한 지적재산권은 "와이즈스톤닷넷"에 있으며,
@@ -13,11 +13,12 @@
  * 
  * (Copyright ⓒ 1997-2010 wisestone.net. All Rights Reserved| Confidential)
  */
-package net.brainage.app.apkinstaller.util;
+package net.brainage.apkinstaller.util;
 
 import java.util.List;
 
-import net.brainage.app.apkinstaller.AppInfo;
+import net.brainage.apkinstaller.ui.adapter.AppInfo;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

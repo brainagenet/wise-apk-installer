@@ -1,8 +1,8 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppArrayAdapter
+ * (#) net.brainage.apkinstaller.AppArrayAdapter
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.ui.adapter;
 
 import java.util.List;
 
@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import net.brainage.apkinstaller.R;
 
 /**
  * 

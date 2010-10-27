@@ -1,10 +1,12 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppArrayList
+ * (#) net.brainage.apkinstaller.AppArrayList
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.util;
 
 import java.util.ArrayList;
+
+import net.brainage.apkinstaller.ui.adapter.AppInfo;
 
 /**
  * 

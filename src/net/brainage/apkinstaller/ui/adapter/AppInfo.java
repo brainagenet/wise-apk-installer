@@ -1,8 +1,8 @@
 /*
- * (#) net.brainage.app.apkinstaller.AppInfo
+ * (#) net.brainage.apkinstaller.AppInfo
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.ui.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;

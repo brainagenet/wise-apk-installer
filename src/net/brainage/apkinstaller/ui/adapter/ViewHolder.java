@@ -1,8 +1,8 @@
 /*
- * (#) net.brainage.app.apkinstaller.ViewHolder
+ * (#) net.brainage.apkinstaller.ViewHolder
  * Created on 2010. 10. 11.
  */
-package net.brainage.app.apkinstaller;
+package net.brainage.apkinstaller.ui.adapter;
 
 import android.widget.Button;
 import android.widget.ImageView;
