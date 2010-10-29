@@ -165,9 +165,7 @@ public class AppScanService extends Service
             if ( AppConstants.DEBUG ) {
                 Log.d(TAG, "start doInBackground() ...");
             }
-
             scan(rootDirectory);
-
             return null;
         }
 
@@ -212,17 +210,6 @@ public class AppScanService extends Service
                 AppInfo appInfo = PackageUtil.parse(AppScanService.this, packageUri.getPath(),
                         PackageManager.GET_UNINSTALLED_PACKAGES);
                 appInfo.setFileUri(packageUri);
-
-                if ( AppConstants.DEBUG ) {
-                    Log.d(TAG, "    - package uri   : " + appInfo.getFileUri().getPath());
-                    Log.d(TAG, "    - package name  : " + appInfo.getPackageName());
-                    Log.d(TAG, "    - name          : " + appInfo.getName());
-                    Log.d(TAG, "    - version code  : " + appInfo.getVersionCode());
-                    Log.d(TAG, "    - version name  : " + appInfo.getVersionName());
-                    Log.d(TAG, "    - was installed : " + appInfo.wasInstalled());
-                    Log.d(TAG, "    - updatable     : " + appInfo.isUpdatable());
-                }
-
                 appList.add(appInfo);
             } catch ( Exception e ) {
                 // TODO 오류가 발생한 파일에 대하여 정보를 Toast로 화면에 표시한다.
@@ -235,8 +222,7 @@ public class AppScanService extends Service
          */
         @Override
         protected void onPostExecute(Void result) {
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction(AppConstants.ACTION_REFRESHED_APPLIST);
+            Intent broadcastIntent = new Intent(AppConstants.ACTION_REFRESHED_APPLIST);
             sendBroadcast(broadcastIntent);
         }
 
