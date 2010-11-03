@@ -224,6 +224,7 @@ public class AppScanService extends Service
         protected void onPostExecute(Void result) {
             Intent broadcastIntent = new Intent(AppConstants.ACTION_REFRESHED_APPLIST);
             sendBroadcast(broadcastIntent);
+            stopSelf();
         }
 
     }
