@@ -6,6 +6,7 @@
     <string name="app_name">Wise Apk Installer</string>
     <string name="msg_install">Install</string>
     <string name="no_applications">There is no applications.</string>
+    <string name="txt_loading">Loading...</string>
     
     <string name="apk_stauts_install">Install</string>
     <string name="apk_stauts_installed">Installed</string>

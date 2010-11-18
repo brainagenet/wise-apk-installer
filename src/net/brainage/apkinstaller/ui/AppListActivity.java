@@ -52,6 +52,11 @@ public class AppListActivity extends ListActivity
     /**
      * 
      */
+    private TextView emptyText;
+
+    /**
+     * 
+     */
     private ProgressBar refreshProgress;
 
     /**
@@ -80,6 +85,8 @@ public class AppListActivity extends ListActivity
 
         refreshProgress = (ProgressBar) findViewById(R.id.title_refresh_progress);
         refreshButton = (ImageButton) findViewById(R.id.btn_title_refresh);
+
+        emptyText = (TextView) findViewById(android.R.id.empty);
 
         appList = AppArrayList.getInstance();
 
@@ -189,6 +196,8 @@ public class AppListActivity extends ListActivity
 
         reloadNowPlaying(true);
 
+        emptyText.setText(R.string.txt_loading);
+
         appList.clear();
 
         Intent serviceIntent = new Intent(this, AppScanService.class);
@@ -223,6 +232,10 @@ public class AppListActivity extends ListActivity
             adapter.notifyDataSetChanged();
 
             reloadNowPlaying(false);
+
+            if ( appList.getList().size() == 0 ) {
+                emptyText.setText(R.string.no_applications);
+            }
         }
     };
 
