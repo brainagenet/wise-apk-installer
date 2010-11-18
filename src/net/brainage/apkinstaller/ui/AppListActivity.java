@@ -34,9 +34,14 @@ import net.brainage.apkinstaller.util.UiUtil;
  */
 public class AppListActivity extends ListActivity
 {
-
+    
     /**
      * 
+     */
+    private static final boolean DEBUG = AppConstants.DEBUG;
+
+    /**
+     * 로그 태그
      */
     private static final String TAG = "AppListActivity";
 
@@ -56,22 +61,22 @@ public class AppListActivity extends ListActivity
     private TextView mEmptyText;
 
     /**
-     * 
+     * Refresh Progress
      */
     private ProgressBar mRefreshProgress;
 
     /**
-     * 
+     * Refresh 버튼
      */
     private ImageButton mRefreshButton;
 
     /**
-     * 
+     * 외장 저장소를 사용할 수 있는지 확인
      */
     private boolean mExternalStorageAvailable = false;
 
     /**
-     * 
+     * 외장 저장소가 쓸 수 있는지 확인
      */
     private boolean mExternalStorageWriteable = false;
 
@@ -117,9 +122,11 @@ public class AppListActivity extends ListActivity
     protected void onResume() {
         super.onResume();
 
+        /* application list scan 작업이 종료되었다는 Intent를 catch할 Receiver 등록 */
         IntentFilter filter = new IntentFilter(AppConstants.ACTION_REFRESHED_APPLIST);
         registerReceiver(applicationRefreshReceiver, filter);
 
+        /* application list scan을 시작한다. */ 
         refreshAppList();
     }
 
@@ -130,7 +137,6 @@ public class AppListActivity extends ListActivity
     @Override
     protected void onPause() {
         unregisterReceiver(applicationRefreshReceiver);
-
         super.onPause();
     }
 
@@ -141,7 +147,7 @@ public class AppListActivity extends ListActivity
      */
     @Override
     protected void onStop() {
-        if ( AppConstants.DEBUG ) {
+        if ( DEBUG ) {
             Log.d(TAG, "onStop() ---------------------------");
         }
         stopService(new Intent(this, AppScanService.class));
@@ -157,7 +163,7 @@ public class AppListActivity extends ListActivity
         super.onConfigurationChanged(newConfig);
 
         if ( newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ) {
-            if ( AppConstants.DEBUG ) {
+            if ( DEBUG ) {
                 Log.d(TAG, "onConfigurationChanged() --------------");
                 Log.d(TAG, "    Configuration.ORIENTATION_LANDSCAPE");
             }
@@ -211,7 +217,7 @@ public class AppListActivity extends ListActivity
             return;
         }
 
-        if ( AppConstants.DEBUG ) {
+        if ( DEBUG ) {
             Log.d(TAG, "Refresh Application List...");
         }
 
@@ -239,6 +245,21 @@ public class AppListActivity extends ListActivity
     }
 
     /**
+     * update external storage state
+     */
+    private void updateExternalStorageState() {
+        String state = Environment.getExternalStorageState();
+        if ( Environment.MEDIA_MOUNTED.equals(state) ) {
+            mExternalStorageAvailable = mExternalStorageWriteable = true;
+        } else if ( Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) ) {
+            mExternalStorageAvailable = true;
+            mExternalStorageWriteable = false;
+        } else {
+            mExternalStorageAvailable = mExternalStorageWriteable = false;
+        }
+    }
+
+    /**
      * 
      */
     BroadcastReceiver applicationRefreshReceiver = new BroadcastReceiver() {
@@ -259,20 +280,5 @@ public class AppListActivity extends ListActivity
             }
         }
     };
-
-    /**
-     * update external storage state
-     */
-    private void updateExternalStorageState() {
-        String state = Environment.getExternalStorageState();
-        if ( Environment.MEDIA_MOUNTED.equals(state) ) {
-            mExternalStorageAvailable = mExternalStorageWriteable = true;
-        } else if ( Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) ) {
-            mExternalStorageAvailable = true;
-            mExternalStorageWriteable = false;
-        } else {
-            mExternalStorageAvailable = mExternalStorageWriteable = false;
-        }
-    }
 
 }
