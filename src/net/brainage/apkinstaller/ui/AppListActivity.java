@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,27 +43,37 @@ public class AppListActivity extends ListActivity
     /**
      * 
      */
-    private AppArrayList appList;
+    private AppArrayList mAppList;
 
     /**
      * 
      */
-    private AppArrayAdapter adapter;
+    private AppArrayAdapter mAdapter;
 
     /**
      * 
      */
-    private TextView emptyText;
+    private TextView mEmptyText;
 
     /**
      * 
      */
-    private ProgressBar refreshProgress;
+    private ProgressBar mRefreshProgress;
 
     /**
      * 
      */
-    private ImageButton refreshButton;
+    private ImageButton mRefreshButton;
+
+    /**
+     * 
+     */
+    private boolean mExternalStorageAvailable = false;
+
+    /**
+     * 
+     */
+    private boolean mExternalStorageWriteable = false;
 
     /**
      * 
@@ -81,17 +92,21 @@ public class AppListActivity extends ListActivity
     private void initActivity() {
         setContentView(R.layout.application_list);
 
+        /* custom title */
         ((TextView) findViewById(R.id.title_text)).setText(getTitle());
 
-        refreshProgress = (ProgressBar) findViewById(R.id.title_refresh_progress);
-        refreshButton = (ImageButton) findViewById(R.id.btn_title_refresh);
+        mRefreshProgress = (ProgressBar) findViewById(R.id.title_refresh_progress);
+        mRefreshButton = (ImageButton) findViewById(R.id.btn_title_refresh);
 
-        emptyText = (TextView) findViewById(android.R.id.empty);
+        mEmptyText = (TextView) findViewById(android.R.id.empty);
 
-        appList = AppArrayList.getInstance();
+        mAppList = AppArrayList.getInstance();
 
-        adapter = new AppArrayAdapter(this, R.layout.application_list_item, appList.getList());
-        setListAdapter(adapter);
+        mAdapter = new AppArrayAdapter(this, R.layout.application_list_item, mAppList.getList());
+        setListAdapter(mAdapter);
+
+        /* update external storage state */
+        updateExternalStorageState();
     }
 
     /**
@@ -190,15 +205,21 @@ public class AppListActivity extends ListActivity
      * 
      */
     private void refreshAppList() {
+        if ( !mExternalStorageAvailable ) {
+            /* display alert dialog for not available external storage */
+            mEmptyText.setText(R.string.txt_noavailable_extstorage);
+            return;
+        }
+
         if ( AppConstants.DEBUG ) {
             Log.d(TAG, "Refresh Application List...");
         }
 
         reloadNowPlaying(true);
 
-        emptyText.setText(R.string.txt_loading);
+        mEmptyText.setText(R.string.txt_loading);
 
-        appList.clear();
+        mAppList.clear();
 
         Intent serviceIntent = new Intent(this, AppScanService.class);
         startService(serviceIntent);
@@ -209,11 +230,11 @@ public class AppListActivity extends ListActivity
      */
     private void reloadNowPlaying(boolean flag) {
         if ( flag ) {
-            refreshProgress.setVisibility(View.VISIBLE);
-            refreshButton.setVisibility(View.GONE);
+            mRefreshProgress.setVisibility(View.VISIBLE);
+            mRefreshButton.setVisibility(View.GONE);
         } else {
-            refreshProgress.setVisibility(View.GONE);
-            refreshButton.setVisibility(View.VISIBLE);
+            mRefreshProgress.setVisibility(View.GONE);
+            mRefreshButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -229,14 +250,29 @@ public class AppListActivity extends ListActivity
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            adapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
 
             reloadNowPlaying(false);
 
-            if ( appList.getList().size() == 0 ) {
-                emptyText.setText(R.string.no_applications);
+            if ( mAppList.getList().size() == 0 ) {
+                mEmptyText.setText(R.string.no_applications);
             }
         }
     };
+
+    /**
+     * update external storage state
+     */
+    private void updateExternalStorageState() {
+        String state = Environment.getExternalStorageState();
+        if ( Environment.MEDIA_MOUNTED.equals(state) ) {
+            mExternalStorageAvailable = mExternalStorageWriteable = true;
+        } else if ( Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) ) {
+            mExternalStorageAvailable = true;
+            mExternalStorageWriteable = false;
+        } else {
+            mExternalStorageAvailable = mExternalStorageWriteable = false;
+        }
+    }
 
 }
