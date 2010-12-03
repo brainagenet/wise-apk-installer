@@ -2,7 +2,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.brainage.app.apkinstaller"
+    package="net.brainage.apkinstaller"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -20,8 +20,9 @@
             </intent-filter>
         </activity>
 
-    <service android:name="ApplicationPackageScanService"></service>
-</application>
+        <service
+            android:name="ApplicationPackageScanService"></service>
+    </application>
 
-
-</manifest> 
+</manifest>
+ 
