@@ -4,6 +4,7 @@
  */
 package net.brainage.app.apkinstaller;
 
+import net.brainage.apkinstaller.R;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;

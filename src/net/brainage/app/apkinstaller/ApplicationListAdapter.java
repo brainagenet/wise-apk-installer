@@ -6,6 +6,7 @@ package net.brainage.app.apkinstaller;
 
 import java.util.List;
 
+import net.brainage.apkinstaller.R;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
