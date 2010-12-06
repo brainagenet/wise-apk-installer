@@ -10,8 +10,8 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name">
         <activity
-            android:name=".ApplicationListActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:name=".ui.ApplicationsActivity">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -21,8 +21,11 @@
         </activity>
 
         <service
-            android:name="ApplicationPackageScanService"></service>
+            android:name=".service.ScanService"></service>
     </application>
 
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8"></uses-sdk>
 </manifest>
  
