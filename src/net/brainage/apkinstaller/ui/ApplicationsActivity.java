@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.brainage.apkinstaller.R;
 import net.brainage.apkinstaller.data.ApplicationInfo;
+import net.brainage.apkinstaller.service.ScanService;
 import net.brainage.apkinstaller.util.DetachableResultReceiver;
 import net.brainage.apkinstaller.util.DetachableResultReceiver.Receiver;
 import android.app.ListActivity;
@@ -96,6 +97,16 @@ public class ApplicationsActivity extends ListActivity implements Receiver
      */
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch ( resultCode ) {
+            case ScanService.STATUS_RUNNING:
+            break;
+
+            case ScanService.STATUS_ERROR:
+            break;
+
+            case ScanService.STATUS_FINISHED:
+            break;
+        }
     }
 
     /* (non-Javadoc)

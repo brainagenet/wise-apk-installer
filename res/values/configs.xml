@@ -2,4 +2,5 @@
 
 <resources>
     <string name="default_base_directory">/mnt/sdcard/apps</string>
+    <string name="application_extension">.apk</string>
 </resources>
